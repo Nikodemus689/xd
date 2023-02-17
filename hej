@@ -6,7 +6,8 @@ def tab(co):
         if co[i] != '+' and co[i] != '-' and co[i] != '*' and co[i] != '/' and co[i] != '(' and co[i] != ')':
             s+=co[i]
         else:
-            t.append(s)
+            if s!="":
+                t.append(s)
             t.append(co[i])
             s=""
         if i==len(co)-1:
@@ -37,22 +38,21 @@ for i in tablica:
         rozw.append(i)
         print(rozw, stos)
     else:
-        if len(stos) == 0:
-            stos.append(i)
-
         for j in range(len(stos)):
             if prior[i] > prior[stos[j]]:
                 rozw.append(stos.pop(j))
+        stos.append(i)
 
         co_w_stosie = stos[-1]
-        xddd = 1
+        xddd = 0
         if i == ")":
             while co_w_stosie != '(':
-                rozw.append(stos.pop(-1-xddd))
+                rozw.append(stos.pop(len(stos)-1-xddd))
                 xddd+=1
+                co_w_stosie = stos[-1-xddd]
         print(rozw, stos)
 
-
+#                   (30*3)-2-2
 
 
 
