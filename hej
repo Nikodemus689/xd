@@ -1,0 +1,67 @@
+co = input("podaj wyrazeie: ")
+def tab(co):
+    t = []
+    s=''
+    for i in range(len(co)):
+        if co[i] != '+' and co[i] != '-' and co[i] != '*' and co[i] != '/' and co[i] != '(' and co[i] != ')':
+            s+=co[i]
+        else:
+            t.append(s)
+            t.append(co[i])
+            s=""
+        if i==len(co)-1:
+            t.append(s)
+    return t
+tablica = tab(co)
+for i in range(len(tablica)):
+    if tablica[i] == " ":
+        tablica.pop(i)
+print(tablica)
+x = 5
+stos = []
+rozw = []
+
+prior = {"+":1,
+         "-":1,
+         "*":2,
+         "/":2,
+         "(":3,
+         ")":3}
+
+
+x = 0
+
+for i in tablica:
+
+    if i  != '+' and i  != '-' and i  != '*' and i != '/' and i != '(' and i != ')':
+        rozw.append(i)
+        print(rozw, stos)
+    else:
+        if len(stos) == 0:
+            stos.append(i)
+
+        for j in range(len(stos)):
+            if prior[i] > prior[stos[j]]:
+                rozw.append(stos.pop(j))
+
+        co_w_stosie = stos[-1]
+        xddd = 1
+        if i == ")":
+            while co_w_stosie != '(':
+                rozw.append(stos.pop(-1-xddd))
+                xddd+=1
+        print(rozw, stos)
+
+
+
+
+
+    if x == len(tablica)-1:
+        y = len(stos)
+
+        while y >0:
+            print(y)
+            rozw.append(stos.pop(y-1))
+            y-=1
+    x+=1
+print(rozw, stos)
